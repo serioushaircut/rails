@@ -1,3 +1,18 @@
+*   Restore the record state (e.g. id, new_record, destroyed) after rollback.
+
+    Example:
+
+        user = User.new(name: 'foo')
+        User.transaction do
+          user.save
+          raise ActiveRecord::Rollback
+        end
+        user.id # => nil
+
+    Fixes #7807 and #12922.
+
+    *Roque Pinel*, *Ivan Antropov*
+
 *   Add option to index errors in nested attributes
 
     For models which have nested attributes, errors within those models will
